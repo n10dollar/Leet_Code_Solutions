@@ -1,0 +1,32 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        
+        
+        
+        
+        int counteri=0;
+        int[] valIndices = new int[50];
+        valIndices[0]=99;
+        for(int i=0; i<nums.length; i++) {
+            if(nums[i] == val) {
+                valIndices[counteri] = i;
+                counteri++;
+            }
+        }
+        
+        
+        
+        int counterNewArr=0;
+        int valIndicesCounter=0;
+        for(int i=0; i<nums.length; i++) {
+            if(valIndices[valIndicesCounter] != i) {
+                nums[counterNewArr] = nums[i];  
+                counterNewArr++;
+            }
+                else valIndicesCounter++;
+        }
+        
+        
+        return counterNewArr;
+    }
+}
