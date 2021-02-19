@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        
+        char[] digitsArr = new char[digits.length()]; 
+        for(int i=0; i<digits.length(); i++){
+            digitsArr[i]=digits.charAt(i);
+        }
+        
+        List<String> numToLetter = new ArrayList<String>(); 
+        numToLetter.add("");
+        numToLetter.add("");
+        // sets indices 0,1 to 0
+        numToLetter.add("abc");
+        numToLetter.add("def");
+        numToLetter.add("ghi");
+        numToLetter.add("jkl");
+        numToLetter.add("mno");
+        numToLetter.add("pqrs");
+        numToLetter.add("tuv");
+        numToLetter.add("wxyz");
+        
+        
+        List<String> letterComb = new ArrayList<String>(); 
+        int iValToInput;
+        
+        for(int i=0; i<digits.length(); i++) {
+        iValToInput = Character.getNumericValue(digits.charAt(i));
+            
+            for(int j=0; j<numToLetter.get(iValToInput).length(); j++) {
+                letterComb.add(Character.toString(numToLetter.get(iValToInput).charAt(j)));
+            }
+        }
+        
+        return letterComb;
+    }
+}
