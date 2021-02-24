@@ -1,0 +1,80 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        List<Integer> squareSumList = new ArrayList<Integer>();    
+        boolean isValidSudoku=true;
+        
+        for(int i=0; i<9; i++) {
+            
+            if(noColumnDup(i)==false || noRowDup(i)==false){
+                isValidSudoku=false;
+                return isValidSudoku;
+            }
+        }
+        
+        for(int i=0; i<3; i++) {
+             for(int j; j<3; j++) {
+                if(noBoxDup(3*i, 3*j)==false) {
+                    isValidSudoku=false;
+                    return isValidSudoku;
+                }
+                
+             }
+        }
+                
+            
+        return isValidSudoku;
+            
+    }
+        
+        
+    
+    
+    
+    
+    public static boolean noBoxDup(int startRow, int indexPush) {
+        
+        List<Integer> squareElements = new ArrayList<Integer>(); 
+        boolean noBoxDuplicate=true;
+        
+        for(int i=0; i<3; i++) {
+             for(int j; j<3; j++) {
+                if(squareElements.contains(board[startRow+i][indexPush+j])==true) {
+                    noBoxDuplicate=false;
+                    return noBoxDuplicate;
+                }
+                 squareElements.add(board[startRow+i][indexPush+j]);
+             }
+        }
+        
+        return noBoxDuplicate;
+    }
+    
+    
+    public static boolean noColumnDup(int col) {
+        for(int i=0; i<9; i++) {
+            if(squareElements.contains(board[i][col])==true) {
+                noColumnDup=false;
+                return noColumnDup;
+            }
+            
+            squareElements.add(board[i][col]);
+        }
+        
+        return noColumnDup;
+    }
+    
+    public static boolean noRowDup(int row) {
+        for(int i=0; i<9; i++) {
+            if(squareElements.contains(board[row][i])==true) {
+                noRowDup=false;
+                return noRowDup;
+            }
+            
+            squareElements.add(board[row][i]);
+        }
+        
+        return noRowDup;
+    }
+    
+}
