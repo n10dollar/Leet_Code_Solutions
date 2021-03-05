@@ -1,80 +1,86 @@
-class Solution {
-    public boolean isValidSudoku(char[][] board) {
-        
-        List<Integer> squareSumList = new ArrayList<Integer>();    
+public class Solution {
+
+    static char[][] board1;
+    public static boolean isValidSudoku(char[][] board) {
+
+        board1 = board;
         boolean isValidSudoku=true;
-        
+
         for(int i=0; i<9; i++) {
-            
+
             if(noColumnDup(i)==false || noRowDup(i)==false){
                 isValidSudoku=false;
                 return isValidSudoku;
             }
         }
-        
+
         for(int i=0; i<3; i++) {
-             for(int j; j<3; j++) {
+            for(int j=0; j<3; j++) {
                 if(noBoxDup(3*i, 3*j)==false) {
                     isValidSudoku=false;
                     return isValidSudoku;
                 }
-                
-             }
+
+            }
         }
-                
-            
+
         return isValidSudoku;
-            
+
     }
-        
-        
-    
-    
-    
-    
+
+
     public static boolean noBoxDup(int startRow, int indexPush) {
-        
-        List<Integer> squareElements = new ArrayList<Integer>(); 
+
+        List<Character> squareElements = new ArrayList<Character>();
         boolean noBoxDuplicate=true;
-        
+
         for(int i=0; i<3; i++) {
-             for(int j; j<3; j++) {
-                if(squareElements.contains(board[startRow+i][indexPush+j])==true) {
+            for(int j=0; j<3; j++) {
+                if(squareElements.contains(board1[startRow+i][indexPush+j])==true &&                                   board1[startRow+i][indexPush+j] != '.')              {
                     noBoxDuplicate=false;
                     return noBoxDuplicate;
                 }
-                 squareElements.add(board[startRow+i][indexPush+j]);
-             }
+
+                squareElements.add(board1[(startRow+i)][(indexPush+j)]);
+            }
         }
-        
+
         return noBoxDuplicate;
     }
-    
-    
+
+
     public static boolean noColumnDup(int col) {
+
+        List<Character> squareElements = new ArrayList<Character>();
+        boolean noColumnDup=true;
         for(int i=0; i<9; i++) {
-            if(squareElements.contains(board[i][col])==true) {
+            if(squareElements.contains(board1[i][col])==true && board1[i][col] != '.') {
                 noColumnDup=false;
                 return noColumnDup;
             }
-            
-            squareElements.add(board[i][col]);
+
+            squareElements.add(board1[i][col]);
         }
-        
+
         return noColumnDup;
     }
-    
+
     public static boolean noRowDup(int row) {
+
+        List<Character> squareElements = new ArrayList<Character>();
+        boolean noRowDup=true;
         for(int i=0; i<9; i++) {
-            if(squareElements.contains(board[row][i])==true) {
+            if(squareElements.contains(board1[row][i])==true && board1[row][i] != '.') {
                 noRowDup=false;
                 return noRowDup;
             }
-            
-            squareElements.add(board[row][i]);
+
+            squareElements.add(board1[row][i]);
         }
-        
+
         return noRowDup;
     }
-    
+
+
+
 }
