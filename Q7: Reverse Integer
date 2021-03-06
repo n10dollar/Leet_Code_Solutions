@@ -1,0 +1,63 @@
+// int implementation
+public static int reverse(int x) {
+
+        boolean isNeg = false;
+        if(x<0) {
+            isNeg = true;
+            x = x*-1;
+        }
+
+        String number = String.valueOf(x);
+        char[] digitsOrig = number.toCharArray();
+        int[] digitsFlip = new int[digitsOrig.length];
+        for(int i=0; i<digitsOrig.length; i++) {
+            digitsFlip[i] = Character.getNumericValue(digitsOrig[(digitsOrig.length-1) - i]);
+        }
+
+
+
+        double  reverseVal = 0;
+        for(int i=0; i<digitsFlip.length; i++) {
+
+            reverseVal = reverseVal + Math.pow(10, (digitsFlip.length - 1) - i) * digitsFlip[i];
+
+        }
+
+        if(reverseVal > Integer.MAX_VALUE)
+            return 0;
+
+        if (isNeg)
+            reverseVal = reverseVal*-1;
+        return (int)(reverseVal);
+    }
+
+-------------------------------------------------------
+
+// String implementation
+public static String reverse(String x) {
+
+        String number = String.valueOf(x);
+        char[] digitsOrig = number.toCharArray();
+        int[] digitsFlip = new int[digitsOrig.length];
+
+        String nonNum = new String();
+        for(int i=0; i<digitsOrig.length; i++) {
+            if (Character.getNumericValue(digitsOrig[(digitsOrig.length-1) - i]) == -1)
+                nonNum = nonNum + Character.toString(digitsOrig[(digitsOrig.length-1) - i]);
+                else {
+                    digitsFlip[i] = Character.getNumericValue(digitsOrig[(digitsOrig.length-1) - i]);
+                }
+        }
+
+
+        double  reverseVal = 0;
+        for(int i=0; i<digitsFlip.length; i++) {
+            reverseVal = reverseVal + Math.pow(10, (digitsFlip.length-1-nonNum.length()) -                     i)*digitsFlip[i];
+        }
+
+        String valString = new String();
+
+            valString = nonNum + String.valueOf(reverseVal);
+
+        return valString;
+    }
