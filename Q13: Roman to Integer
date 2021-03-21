@@ -1,0 +1,36 @@
+class Solution {
+    public int romanToInt(String s) {
+        
+        Map<Character, Integer> romToArabic = new HashMap<>(); 
+        
+        romToArabic.put('I', 1);
+        romToArabic.put('V', 5);
+        romToArabic.put('X', 10);
+        romToArabic.put('L', 50);
+        romToArabic.put('C', 100);
+        romToArabic.put('D', 500);
+        romToArabic.put('M', 1000);
+        
+        char[] romCharArr = s.toCharArray(); 
+        
+        int finalNum = 0;
+        for(int i=0; i<romCharArr.length; i++) {
+            
+            try {
+                if(romToArabic.get(romCharArr[i-1]) >= romToArabic.get(romCharArr[i]))
+                    finalNum = finalNum + romToArabic.get(romCharArr[i]); 
+
+                    else 
+                        finalNum = finalNum + romToArabic.get(romCharArr[i]) - 2*romToArabic.get(romCharArr[i-1]); 
+            }
+            
+            catch (Exception ArrayIndexoutOfBoundsException) {
+                finalNum = finalNum + romToArabic.get(romCharArr[i]); 
+            }
+      
+        }
+        
+        
+        return finalNum;
+    }
+}
