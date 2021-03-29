@@ -1,0 +1,44 @@
+class Solution {
+    
+    static int[][] copyMatrix;
+    public void rotate(int[][] matrix) {
+        
+        copyMatrix = matrix;
+        
+        int ringCount = (int)Math.ceil(((double)copyMatrix.length)/2);
+        for(int i=0; i<ringCount; i++) {            
+            RotateRing(copyMatrix, i);
+        }
+        
+        matrix = copyMatrix; 
+                
+    }
+    
+    public static void RotateRing(int[][] matrix, int whichRing) {
+        
+        int length = matrix.length - 2*whichRing - 1;     
+        for(int i=0; i<length; i++) {
+            RotateCorresSquares(copyMatrix, whichRing, i);         
+        }
+
+    }
+    
+    public static void RotateCorresSquares(int[][] matrix, int whichRing, int squarePush) {
+        
+        int length = matrix.length - 2*whichRing - 1;     
+        
+        int cache = matrix[whichRing+squarePush][whichRing+length];
+        matrix[whichRing+squarePush][whichRing+length] = matrix[whichRing][whichRing+squarePush];
+
+        int cache1 = matrix[whichRing+length][whichRing+length-squarePush];
+        matrix[whichRing+length][whichRing+length-squarePush] = cache;
+
+        int cache2 = matrix[whichRing+length-squarePush][whichRing];
+        matrix[whichRing+length-squarePush][whichRing] = cache1;
+
+        int cache3 = matrix[whichRing+squarePush][whichRing];
+        matrix[whichRing][whichRing+squarePush] = cache2;    
+    
+    }
+    
+}
