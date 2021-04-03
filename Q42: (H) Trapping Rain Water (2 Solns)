@@ -1,0 +1,146 @@
+class Solution1 {
+
+    public static int trap(int[] height) {
+
+        int trimmings=0;
+        int holeNumber=0;
+        int maxHeight = MaxHeight(height);
+        int length = height.length;
+        int box = maxHeight * length;
+
+        for(int i=1; i<=maxHeight; i++) {
+            trimmings = trimmings + StartVal(i, height) + (length - EndVal(i, height) - 1);
+        }
+
+        holeNumber = box - (trimmings + HowManyBlocks(height));
+        return holeNumber;
+    }
+
+    public static int HowManyBlocks(int[] height) {
+
+        int blockCount = 0;
+        for(int i=0; i<height.length; i++) {
+            blockCount = blockCount + height[i];
+        }
+
+        return blockCount;
+    }
+
+
+    public static int MaxHeight(int[] height) {
+
+        int maxHeight = 0;
+        for(int i=0; i<height.length; i++) {
+            if(maxHeight < height[i])
+                maxHeight = height[i];
+        }
+
+        return maxHeight;
+    }
+
+
+
+    public static int StartVal(int i, int[] height) {
+
+        int startVal=-1;
+        for(int j=0; j<height.length; j++) {
+            if(i-height[j] <= 0) {
+                startVal = j;
+                return startVal;
+            }
+        }
+
+        return startVal;
+    }
+
+
+    public static int EndVal(int i, int[] height) {
+
+        int endVal=-1;
+        for(int j=height.length-1; j>=0; j--) {
+            if(i-height[j] <= 0) {
+                endVal = j;
+                return endVal;
+            }
+        }
+
+        return endVal;
+    }
+}
+
+
+
+
+
+
+class Solution2 {
+
+    public static int trap(int[] height) {
+
+        int trimmings=0;
+        int maxHeight = MaxHeight(height);
+        int length = height.length;
+        int box = maxHeight * length;
+
+        for(int i=1; i<=maxHeight; i++) {
+            trimmings = trimmings + StartVal(i, height) + (length - EndVal(i, height) - 1);
+        }
+
+        int holeNumber = box - (trimmings + HowManyBlocks(height));
+        return holeNumber;
+    }
+
+    public static int HowManyBlocks(int[] height) {
+
+        int blockCount = 0;
+        for(int i=0; i<height.length; i++) {
+            blockCount = blockCount + height[i];
+        }
+
+        return blockCount;
+    }
+
+
+    public static int MaxHeight(int[] height) {
+
+        int maxHeight = 0;
+        for(int i=0; i<height.length; i++) {
+            if(maxHeight < height[i])
+                maxHeight = height[i];
+        }
+
+        return maxHeight;
+    }
+
+
+
+    public static int StartVal(int i, int[] height) {
+
+        int startVal=-1;
+        for(int j=0; j<height.length; j++) {
+            if(i-height[j] <= 0) {
+                startVal = j;
+                return startVal;
+            }
+        }
+
+        return startVal;
+    }
+
+
+    public static int EndVal(int i, int[] height) {
+
+        int endVal=-1;
+        for(int j=height.length-1; j>=0; j--) {
+            if(i-height[j] <= 0) {
+                endVal = j;
+                return endVal;
+            }
+        }
+
+        return endVal;
+    }
+
+}
+
+
