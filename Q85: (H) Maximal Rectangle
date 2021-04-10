@@ -1,0 +1,72 @@
+class Solution {
+    
+    
+    public int maximalRectangle(char[][] matrix) {
+        
+        int maxMatrixArea=0;
+        for(int i=0; i<matrix.length; i++) {
+            maxMatrixArea = Math.max(maxMatrixArea, maxHistRect(matrix, createHistArr(matrix, i)));
+            
+        }
+        
+        return maxMatrixArea;
+    }
+    
+    public int[] createHistArr(char[][] matrix, int row) {
+        
+        int[] histArr = new int[matrix[0].length];
+        
+        for(int i=0; i<matrix[0].length; i++) {
+            //i=column
+            for(int j=row; j>=0; j--) {
+                //j=row 
+                if(matrix[j][i] == '0') { 
+                    break;
+                }
+                    else if(matrix[j][i] == '1') 
+                        histArr[i] = histArr[i]+1;
+            }
+        }
+        
+        return histArr;
+        
+    }
+    
+    
+    
+    
+    // row ex index=2, { 3, 1, 3, 2, 2 }
+    // row ex index=3, { 4, 0, 0, 3, 0 }
+    public int maxHistRect(char[][] matrix, int[] histArr) {
+    
+        ArrayList<Integer> scopeArrList = new ArrayList<Integer>();      
+        
+        int maxHistRect=0;
+        int maxArea=0; 
+        int minHeight=0;
+        
+        // if(histArr.length == 0)
+        //     return 0;
+            
+        for(int i=0; i<histArr.length; i++) { 
+            //goes down row
+           if(histArr[i] > 0) {     
+                for(int j=0; j<=(histArr.length-1)-i; j++) {
+                    //sets remaining indices
+                    scopeArrList.clear();
+                    for(int k=0; k<=j; k++) {
+                        //goes down remaining indices
+                        scopeArrList.add(histArr[i+k]);
+                    }
+                    Collections.sort(scopeArrList);
+                    minHeight = scopeArrList.get(0);
+                    maxArea = Math.max(maxArea, (j+1)*minHeight);
+                }
+           }
+        }
+        
+        return maxArea; 
+    }
+    
+}
+
