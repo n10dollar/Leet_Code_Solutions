@@ -1,0 +1,43 @@
+class Solution {
+    
+    double waysCounter=0;
+    int operationCounter=0;
+    public int climbStairs(int n) {
+        
+        permutationCalc(n, 0);
+        
+        return (int)Math.round(waysCounter); 
+    }
+    
+    
+    public void permutationCalc(int oneCount, int twoCount) {
+        
+        waysCounter = waysCounter + formulaCalc(oneCount + twoCount, Math.max(oneCount, twoCount));
+        operationCounter++;
+        System.out.println(operationCounter + "|" + waysCounter);
+        
+        if(oneCount-2>=0) 
+            permutationCalc(oneCount-2, twoCount+1);
+       
+    }
+    
+    //formula: n!/((n-r)!*r!)
+    public double formulaCalc(int n, int r) {
+        
+        double factorial=1;
+        
+        int nr=n-r;
+        for(int N=n; N>r; N--) {
+            //covers n!/(n-r)! part
+            factorial = factorial * N;
+            
+            //covers /r! part
+            factorial = factorial / nr; 
+            nr--;
+        }
+        
+        return factorial;
+    }
+    
+}    
+    
