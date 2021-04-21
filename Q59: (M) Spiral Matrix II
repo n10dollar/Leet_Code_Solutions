@@ -1,0 +1,36 @@
+class Solution {
+    
+    int[][] generatedMatrix;
+    int numCounter=1;
+    public int[][] generateMatrix(int n) {
+        generatedMatrix = new int[n][n];
+        int loopCounter = n/2;
+        for(int i=0; i<loopCounter; i++) {
+            runRing(i, n);
+        }
+        if(n%2 == 1) 
+            generatedMatrix[(n+1)/2-1][(n+1)/2-1] = numCounter;
+    
+        return generatedMatrix;
+    }
+    
+    public void runRing(int ring, int n) {
+        for(int i=0; i<=n-1-ring*2; i++) {
+            generatedMatrix[ring][ring+i] = numCounter;
+            numCounter++;
+        }
+        for(int i=1; i<=n-1-ring*2; i++) {
+            generatedMatrix[ring+i][(n-1)-ring] = numCounter;
+            numCounter++;
+        }
+        for(int i=1; i<=n-1-ring*2; i++) {
+            generatedMatrix[(n-1)-ring][(n-1)-ring-i] = numCounter;
+            numCounter++;
+        }
+        for(int i=1; i<=(n-1-ring*2)-1; i++) {
+            generatedMatrix[(n-1)-ring-i][ring] = numCounter;
+            numCounter++;
+        }
+    }
+    
+}
