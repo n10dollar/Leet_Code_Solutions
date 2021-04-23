@@ -1,0 +1,57 @@
+class Solution1 {
+    
+    int[][] matrixGrid;
+    public int uniquePaths(int m, int n) {
+        matrixGrid = new int[m][n];
+        
+        setUpMatrix(m, n);
+        for(int row=m-2; row>=0; row--) {
+            matrixGridPathsByIndex(m, n, row);
+        }
+        
+        System.out.print(Arrays.deepToString(matrixGrid));
+        return matrixGrid[0][0];
+    }
+    
+    public void matrixGridPathsByIndex(int m, int n, int row) {
+        for(int col=n-2; col>=0; col--) {
+            matrixGrid[row][col] = matrixGrid[row+1][col] + matrixGrid[row][col+1];
+        }
+    }    
+    
+    public void setUpMatrix(int m, int n) {
+         for(int i=0; i<=n-1; i++) {
+            matrixGrid[m-1][i] = 1;
+        } 
+        for(int i=0; i<=m-1; i++) {
+            matrixGrid[i][n-1] = 1;
+        }
+    } 
+}    
+    
+    
+class Solution2 {    
+     int pathCounter=0;
+     public int uniquePaths(int m, int n) {
+         shiftRobot(m, n, 1, 1);
+         return pathCounter;
+     }
+    
+     //m=yDist, n=xDist
+     public void shiftRobot(int m, int n, int xDist, int yDist) {
+        
+         if(xDist == n && yDist == m) {
+             pathCounter++;
+         }
+        
+         if(xDist < n) {
+             shiftRobot(m, n, xDist+1, yDist);
+         }    
+        
+         if(yDist < m) {
+             shiftRobot(m, n, xDist, yDist+1);
+         }  
+    
+     }
+    
+}
