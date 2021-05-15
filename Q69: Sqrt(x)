@@ -1,0 +1,30 @@
+class Solution {
+    public int mySqrt(int x) {
+        int startingPoint=findStartingPoint(x);   
+        
+        double root;
+        for(root=startingPoint; root*root<=x; root++) {
+        }
+        root--;
+        
+        return (int)root; 
+    }
+    
+    public int findStartingPoint(int num) {
+        double counter=0;
+        double num1 = num;
+        while(num1 >= 1) {
+            counter++; 
+            num1 = num1/10;
+        }
+        
+        int startingPoint=1;
+        int newDig = (int)Math.ceil(counter/2);
+        for(int i=1; i<newDig; i++) {
+            startingPoint = 10*startingPoint;
+        }
+        
+        return startingPoint;
+    }
+    
+}
