@@ -1,0 +1,54 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        
+        Stack<String> operStack = new Stack<String>();
+        operStack.push(tokens[0]);
+        
+        for(int i=1; i<tokens.length; i++) {
+            
+            operStack.push(tokens[i]);
+            
+            if(stringIsNumeric(operStack.peek()))
+                continue;
+                   
+            if(!stringIsNumeric(operStack.peek())) {
+                char current = operStack.peek().charAt(0);
+                operStack.pop();
+                int oneBack = Integer.parseInt(operStack.peek());
+                operStack.pop();
+                int twoBack = Integer.parseInt(operStack.peek());
+                operStack.pop();
+                
+                operStack.push(String.valueOf(charToOperation(twoBack, oneBack, current)));
+            }
+            
+        }
+               
+        return Integer.parseInt(operStack.peek());
+    }
+    
+    public int charToOperation(int num1, int num2, char operator) {
+        if(operator == '+') 
+            return (num1 + num2);
+        if(operator == '-')
+            return (num1 - num2);
+        if(operator == '*')
+            return (num1 * num2);
+        if(operator == '/')
+            return (num1 / num2 );
+        return '0';
+    }
+               
+    public boolean stringIsNumeric(String s) {
+        boolean ret = true;
+        try {
+            Double.parseDouble(s);
+            }
+        catch (NumberFormatException e) {
+            ret = false;
+        }
+
+        return ret;
+    }
+    
+}
