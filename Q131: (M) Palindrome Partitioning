@@ -1,0 +1,50 @@
+class Solution {
+    
+    List<List<String>> listOfSolns = new ArrayList<List<String>>(); 
+    char[] sChars;
+    public List<List<String>> partition(String s) {
+        sChars = s.toCharArray(); 
+        
+        palinRecursion(new ArrayList(), "", 0);
+        
+        return listOfSolns;
+    } 
+    
+    public void palinRecursion (ArrayList<String> inputList, String currWord, int arrIndex) {
+        if(arrIndex >= sChars.length) {
+            if (isPalindrome(currWord) && !listOfSolns.contains(inputList)) {
+                if(currWord != "") inputList.add(currWord);
+                listOfSolns.add(inputList);
+            }
+            return;
+        }
+        
+        currWord += sChars[arrIndex];
+        if(!isPalindrome(currWord)) 
+            palinRecursion(new ArrayList(inputList), currWord, arrIndex+1);
+            else {
+                palinRecursion(new ArrayList(inputList), currWord, arrIndex+1);
+                inputList.add(currWord);
+                palinRecursion(new ArrayList(inputList), "", arrIndex+1);
+                }
+        
+    }
+    
+    public boolean isPalindrome(String s) {
+        
+        boolean isPalindrome=false;
+        
+        char[] sArr = s.toCharArray(); 
+        char[] newWord = new char[sArr.length]; 
+        
+        for(int i=0; i<sArr.length; i++) {
+            newWord[sArr.length-1-i] = sArr[i];
+        } 
+        
+        if(String.valueOf(sArr).equals(String.valueOf(newWord)))
+            isPalindrome=true;
+        
+        return isPalindrome;
+    }
+    
+}
