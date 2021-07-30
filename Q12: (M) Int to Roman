@@ -1,0 +1,46 @@
+class Solution {
+
+    private HashMap<Integer, String> intToRomanMap = new HashMap<Integer, String>();
+
+    public String intToRoman(int num) {
+        intToRomanMap.put(1, "I");
+        intToRomanMap.put(5, "V");
+        intToRomanMap.put(10, "X");
+        intToRomanMap.put(50, "L");
+        intToRomanMap.put(100, "C");
+        intToRomanMap.put(500, "D");
+        intToRomanMap.put(1000, "M");
+
+        StringBuilder sb = new StringBuilder();
+
+        char[] digitCharArr = Integer.toString(num).toCharArray();
+        int[] digitArr = new int[digitCharArr.length];
+        for(int i=0; i<digitArr.length; i++) { digitArr[i] = Character.getNumericValue(digitCharArr[i]); }
+
+        for(int i=digitArr.length-1; i>=0; i--) { sb.append(processDigit(i, digitArr));}
+
+        return sb.toString();
+    }
+
+    private String processDigit(int digitPlace, int[] digitArr) {
+        StringBuilder sb = new StringBuilder();
+        if(digitArr[(digitArr.length-1) - digitPlace] == 9) {
+            sb.append(intToRomanMap.get((int)Math.pow(10, digitPlace)));
+            sb.append(intToRomanMap.get((int)Math.pow(10, digitPlace+1)));
+        }
+        else if(5 <= digitArr[(digitArr.length-1) - digitPlace] && digitArr[(digitArr.length-1) - digitPlace] <= 8) {
+            sb.append(intToRomanMap.get(5 * (int)Math.pow(10, digitPlace)));
+            int remainingValue = digitArr[(digitArr.length-1) - digitPlace] - 5;
+            for(int i=1; i<=remainingValue; i++) { sb.append(intToRomanMap.get((int)Math.pow(10, digitPlace))); }
+        }
+        else if(digitArr[(digitArr.length-1) - digitPlace] == 4) {
+            sb.append(intToRomanMap.get((int)Math.pow(10, digitPlace)));
+            sb.append(intToRomanMap.get(5 * (int)Math.pow(10, digitPlace)));
+        }
+        else 
+            for(int i=1; i<=digitArr[(digitArr.length-1) - digitPlace]; i++) { sb.append(intToRomanMap.get((int)Math.pow(10, digitPlace))); }
+
+        return sb.toString();
+    }
+
+}
