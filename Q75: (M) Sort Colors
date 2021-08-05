@@ -1,0 +1,45 @@
+public class sortColors {
+
+    public static void sortColors(int[] nums) {
+
+        //int[] nums = { 2,0,2,1,1,0 };
+        //{ 0,0,2,1,1,2 };
+        //{ 1,2 };
+        final int COLOR_MAX=2;
+        int currentColor=0;
+        boolean currentColorExists=false;
+
+        for(int i=0; i<nums.length; i++) {
+
+            if(nums[i] > currentColor) {
+                System.out.println(currentColor);
+
+                currentColorExists=false;
+                while(!currentColorExists && (currentColor <= COLOR_MAX && currentColor <= nums[i])) {
+
+                    currentColorExists=false;
+                    for(int j=nums.length-1; j>i; j--) {
+                        if(nums[j] == currentColor) {
+                            swap(i, j, nums);
+                            currentColorExists=true;
+                            break;
+                        }
+                        //else, do nothing
+                    }
+                    if(!currentColorExists) currentColor++;
+                }
+            }
+
+        }
+
+    }
+
+
+    private static void swap(int index1, int index2, int[] nums) {
+        int originalIndex2Val = nums[index2];
+        nums[index2] = nums[index1];
+        nums[index1] = originalIndex2Val;
+    }
+
+
+}
