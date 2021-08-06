@@ -1,0 +1,31 @@
+public class Combinations {
+    
+    public List<List<Integer>> combine(int n, int k) {
+        
+        List<List<Integer>> allCombinations = new ArrayList<List<Integer>>();
+        
+        List<Integer> newlyInsertedList;
+        for(int i=1; i<=n-k+1; i++) {
+            newlyInsertedList = new ArrayList<Integer>();
+            newlyInsertedList.add(i);
+            combinationSearch(i, 1, n, k, newlyInsertedList, allCombinations);
+        }
+        
+        return allCombinations; 
+    }
+    
+    
+    private void combinationSearch(int currentNum, int listLength, int n, int k, List<Integer> kCombinations, List<List<Integer>> allCombinations) {
+        
+        if(listLength == k)
+            allCombinations.add(new ArrayList<Integer>(kCombinations));   
+        else for(int i=currentNum+1; i<=n; i++) {
+            kCombinations.add(i);
+            combinationSearch(i, listLength+1, n, k, kCombinations, allCombinations);
+            kCombinations.remove(kCombinations.size()-1);
+        }
+        
+    }
+    
+    
+}
