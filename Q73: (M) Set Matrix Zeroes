@@ -1,0 +1,91 @@
+class Solution {
+    
+    public void setZeroes(int[][] matrix) {
+        
+        //columns, then rows
+        boolean[] markLine = new boolean[matrix.length + matrix[0].length]; 
+        
+        for(int y=0; y<matrix.length; y++) {
+            for(int x=0; x<matrix[0].length; x++) {
+                if(matrix[y][x] == 0) {
+                    markLine[y] = true;
+                    markLine[matrix.length + x] = true; 
+                }    
+            }
+        }
+        
+        
+        //actually change lines (rows & colums) to 0 
+        for(int y=0; y<matrix.length; y++) {
+            if(markLine[y]) {
+                for(int x=0; x<matrix[0].length; x++) {
+                    matrix[y][x] = 0;
+                }
+            }
+        }
+        for(int x=0; x<matrix[0].length; x++) {
+            if(markLine[matrix.length + x]) {
+                for(int y=0; y<matrix.length; y++) {
+                    matrix[y][x] = 0;
+                }
+            }
+        }
+
+    
+    }
+    
+    
+//_____________________________________________________________________________    
+    
+    
+    public void setZeroes2(int[][] matrix) {
+        
+        for(int y=0; y<matrix.length; y++) {
+            for(int x=0; x<matrix[0].length; x++) {
+                if(matrix[y][x] == 0)
+                    foundZero(y, x, matrix);
+            }
+        }
+        
+        for(int y=0; y<matrix.length; y++) {
+            for(int x=0; x<matrix[0].length; x++) {
+                if(matrix[y][x] == -1892120)
+                    matrix[y][x] = 0;
+            }
+        }    
+        
+    }
+    
+    
+    private void foundZero(int y, int x, int[][] matrix) {
+        
+        System.out.println(y + ", " + x);
+        matrix[y][x] = -1892120;
+        
+        for(int i=y+1; i<matrix.length; i++){
+            if(matrix[i][x] == 0) 
+                foundZero(i, x, matrix);
+            else matrix[i][x] = -1892120; 
+        }
+         for(int i=x+1; i<matrix[0].length; i++){
+            if(matrix[y][i] == 0) 
+                foundZero(y, i, matrix);
+            else matrix[y][i] = -1892120;
+        }
+        for(int i=y-1; i>=0; i--){
+            if(matrix[i][x] == 0) 
+                foundZero(i, x, matrix);
+            else matrix[i][x] = -1892120;
+        }
+       
+        for(int i=x-1; i>=0; i--){
+            if(matrix[y][i] == 0) 
+                foundZero(y, i, matrix);
+            else matrix[y][i] = -1892120;
+        }
+    }
+    
+    
+    
+    
+}
